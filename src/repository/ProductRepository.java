@@ -9,9 +9,7 @@ public interface ProductRepository {
 
     void delete(Long productId);
 
-    Product get(Long productId);
+    Product findByProductId(Long productId);
 
-    List<Product> getColdProducts();
-
-    List<Product> getHotProducts();
+    List<Product> findAllProducts();
 }

@@ -1,6 +1,7 @@
 package repository;
 
 import domain.Product;
+import domain.Temperature;
 
 import java.util.*;
 
@@ -20,19 +21,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product get(Long productId) {
+    public Product findByProductId(Long productId) {
         return products.get(productId);
     }
 
     @Override
-    public List<Product> getColdProducts() {
-        List<Product> coldProducts = new ArrayList<>();
-        Iterator<>
-        return null;
-    }
-
-    @Override
-    public List<Product> getHotProducts() {
-        return null;
+    public List<Product> findAllProducts() {
+        return new ArrayList<>(products.values());
     }
 }

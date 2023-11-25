@@ -27,4 +27,9 @@ public class Product {
     public Integer getCost() {
         return cost;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%d] %s : %d\n", productId, productName, cost);
+    }
 }
