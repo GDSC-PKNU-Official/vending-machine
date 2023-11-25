@@ -12,6 +12,10 @@ public class Product {
         this.cost = cost;
     }
 
+    public Long getProductId() {
+        return productId;
+    }
+
     public void setProductId(Long productId) {
         this.productId = productId;
     }
