@@ -87,6 +87,40 @@ public class SystemMessage {
                 """, product.getProductName());
     }
 
+    public void cashResult(Product product, int insertedCash) {
+        printResult(product);
+
+        System.out.printf("""
+                [투입 금액]
+                %d원
+                
+                [잔돈]
+                %s
+                """, insertedCash, returnChange(product, insertedCash));
+    }
+
+    public String returnChange(Product product, int insertedCash) {
+        StringBuilder sb = new StringBuilder();
+        int change = insertedCash - product.getCost();
+
+        int[] moneyTypes = {50000, 10000, 5000, 1000, 500, 100};  // 화폐 단위
+        String[] moneyNames = {"50000원권", "10000원권", "5000원권", "1000원권", "500원 동전", "100원 동전"};  // 화폐 이름
+        int[] moneyCounts = new int[moneyTypes.length];  // 각 화폐 단위별 개수
+
+        for (int i = 0; i < moneyTypes.length; i++) {
+            moneyCounts[i] = change / moneyTypes[i];  // 거스름돈을 해당 화폐 단위로 나눈 몫
+            change %= moneyTypes[i];  // 거스름돈을 해당 화폐 단위로 나눈 나머지
+        }
+
+        // 결과 출력
+        for (int i = 0; i < moneyNames.length; i++) {
+            if (moneyCounts[i] > 0) {
+                sb.append(moneyNames[i]).append(" : ").append(moneyCounts[i]).append("개\n");
+            }
+        }
+        return sb.toString();
+    }
+
     public void cardResult(Product product) {
         printResult(product);
         System.out.printf("""

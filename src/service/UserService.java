@@ -1,5 +1,6 @@
 package service;
 
+import domain.PaymentMethod;
 import domain.Product;
 
 public interface UserService {
@@ -7,9 +8,9 @@ public interface UserService {
 
     Product selectProduct(String input);
 
-    void selectPaymentMethod(String input, Product product);
+    PaymentMethod selectPaymentMethod(String input, Product product);
 
-    void insertCash(Product product);
+    int insertCash(Product product);
 
     int selectedCash(String input);
 }

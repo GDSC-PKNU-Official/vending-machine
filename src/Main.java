@@ -1,3 +1,4 @@
+import domain.PaymentMethod;
 import domain.Product;
 import domain.UserType;
 import service.*;
@@ -20,6 +21,8 @@ public class Main {
         input = systemMessage.inputMessage(user);
         if (input.equals("admin")) {
             user = ADMIN;
+
+            return;
         }
         systemMessage.printTemperatureMenu();
         userService.selectTemperature(systemMessage.inputMessage(user));
@@ -27,7 +30,15 @@ public class Main {
 
         systemMessage.printPaymentMethodMenu();
 
-        userService.selectPaymentMethod(systemMessage.inputMessage(user), product);
+        PaymentMethod paymentMethod = userService.selectPaymentMethod(systemMessage.inputMessage(user), product);
+        if (paymentMethod.equals(PaymentMethod.CASH)) {
+            int insertedCash = userService.insertCash(product);
+            systemMessage.cashResult(product, insertedCash);
+        } else if (paymentMethod.equals(PaymentMethod.CARD)) {
+            systemMessage.cardResult(product);
+        } else {
+            System.out.println("잘못된 입력값");
+        }
     }
 
     public static void initialize() {

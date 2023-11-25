@@ -1,8 +1,11 @@
 package service;
 
+import domain.PaymentMethod;
 import domain.Product;
 import domain.UserType;
 import util.message.SystemMessage;
+
+import java.io.IOException;
 
 import static domain.Temperature.COLD;
 import static domain.Temperature.HOT;
@@ -35,16 +38,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void selectPaymentMethod(String input, Product product) {
+    public PaymentMethod selectPaymentMethod(String input, Product product) {
         if (input.equals("1")) {
-            insertCash(product);
+            return PaymentMethod.CASH;
         } else if (input.equals("2")) {
-            systemMessage.cardResult(product);
+            return PaymentMethod.CARD;
         }
+        return null;
     }
 
     @Override
-    public void insertCash(Product product) {
+    public int insertCash(Product product) {
         String input;
         int insertedCash = 0;
         while (insertedCash <= product.getCost()) {
@@ -55,6 +59,7 @@ public class UserServiceImpl implements UserService {
             }
             insertedCash += selectedCash(input);
         }
+        return insertedCash;
     }
 
     @Override
