@@ -14,6 +14,7 @@ public class OutputView {
 
     public static void printWelcomeMessage() {
         System.out.println("[어서와요! GDSC 음료 자판기]");
+        System.out.println();
     }
 
     public static void printOptionsSelection() {

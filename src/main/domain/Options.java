@@ -36,6 +36,10 @@ public enum Options {
         this.beverages = beverages;
     }
 
+    public static Options getUserSelectedOption(int userInput) {
+        return Options.values()[userInput - 1];
+    }
+
     public String getOptions() {
         return options;
     }
