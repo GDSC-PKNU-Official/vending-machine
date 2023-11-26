@@ -26,25 +26,12 @@ public class VendingMachineController {
         final PaymentOption paymentOption = retryOnFailure(View::readPaymentOption);
 
         final Drink drink = selectDrink(drinks);
-
         if (paymentOption.equals(PaymentOption.CARD)) {
             payWithCard(drink);
         }
         if (paymentOption.equals(PaymentOption.CASH)) {
             payWithCash(drink);
         }
-    }
-
-    private Drink selectDrink(final Drinks drinks) {
-        return retryOnFailure(() -> {
-            final int beverageSelection = retryOnFailure(() -> View.readBeverage(drinks.getValue()));
-            final Drink drink = drinks.indexOf(beverageSelection);
-            if (isNull(drink)) {
-                throw new IllegalArgumentException("존재하지 않는 상품입니다.");
-            }
-
-            return drink;
-        });
     }
 
     private <T> T retryOnFailure(final Supplier<T> supplier) {
@@ -65,6 +52,18 @@ public class VendingMachineController {
         }
 
         throw new UnsupportedOperationException("지원하지 않는 옵션입니다.");
+    }
+
+    private Drink selectDrink(final Drinks drinks) {
+        return retryOnFailure(() -> {
+            final int beverageSelection = retryOnFailure(() -> View.readBeverage(drinks.getValue()));
+            final Drink drink = drinks.indexOf(beverageSelection);
+            if (isNull(drink)) {
+                throw new IllegalArgumentException("존재하지 않는 상품입니다.");
+            }
+
+            return drink;
+        });
     }
 
     private void payWithCard(final Drink drink) {
