@@ -6,4 +6,6 @@ public interface Payable {
     boolean proceedPayment();
 
     BigDecimal getTotalPrice();
+
+    void addCash(Cash cash);
 }

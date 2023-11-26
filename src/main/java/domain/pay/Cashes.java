@@ -20,4 +20,8 @@ public record Cashes(List<Cash> value) {
     public BigDecimal minus(final BigDecimal price) {
         return sum().subtract(price);
     }
+
+    public void addCash(final Cash cash) {
+        value.add(cash);
+    }
 }

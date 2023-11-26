@@ -18,6 +18,11 @@ public record CashPayment(BigDecimal requestedPrice, Cashes cashes) implements P
         return requestedPrice;
     }
 
+    @Override
+    public void addCash(final Cash cash) {
+        cashes.addCash(cash);
+    }
+
     public Cashes getChange() {
         if (!proceedPayment()) {
             throw new IllegalStateException("현재의 금액 총합이 계산할 금액보다 적습니다.");

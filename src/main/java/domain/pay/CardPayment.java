@@ -14,6 +14,11 @@ public record CardPayment(BigDecimal requestedPrice) implements Payable {
         return getTaxedPrice();
     }
 
+    @Override
+    public void addCash(final Cash cash) {
+        throw new UnsupportedOperationException();
+    }
+
     private BigDecimal getTaxedPrice() {
         final BigDecimal tax = requestedPrice.divide(BigDecimal.TEN);
         return requestedPrice.add(tax);
