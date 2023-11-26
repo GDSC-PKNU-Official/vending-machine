@@ -20,6 +20,8 @@ class vending_machine {
         this.how = data[1];
         this.count = data[2];
         this.all = data[3];
+
+        this.auth = '사용자';
     }
 
     read_data(select_arr, arr, do_type = 0) {
@@ -66,10 +68,10 @@ class vending_machine {
     start() {
         console.log("[어서와요! GDSC 음료 자판기]");
 
-        this.select_1();
+        this.user_ice_or_hot();
     }
 
-    admin_page_0() {
+    admin_main() {
         console.log('[관리자 페이지]');
         this.auth = "admin";
 
@@ -83,18 +85,18 @@ class vending_machine {
         console.log('[' + this.admin_select_0 + ']');
 
         if(this.admin_select_0 === Object.keys(select)[0]) {
-            this.admin_page_5();
+            this.admin_total_profit();
         } else {
-            this.admin_page_1();
+            this.admin_drink_manager();
         }
     }
 
-    admin_page_5() {
+    admin_total_profit() {
         console.log('[관리자 페이지 - 총 수익]');
         console.log(String(this.all) + '원');
     }
 
-    admin_page_1() {
+    admin_drink_manager() {
         console.log('[관리자 페이지 - 음료 관리]');
 
         let select = {
@@ -108,15 +110,15 @@ class vending_machine {
         console.log('[' + this.admin_select_1 + ']');
 
         if(this.admin_select_1 === Object.keys(select)[0]) {
-            this.admin_page_2();
+            this.admin_drink_list();
         } else if(this.admin_select_1 === Object.keys(select)[1]) {
-            this.admin_page_3();
+            this.admin_add_drink();
         } else {
-            this.admin_page_4();
+            this.admin_remove_drink();
         }
     }
 
-    admin_page_2() {
+    admin_drink_list() {
         let select_length = Object.keys(this.select).length;
         for(let for_a = 0; for_a < select_length; for_a++) {
             console.log('[' + Object.keys(this.select)[for_a] + ']');
@@ -124,7 +126,7 @@ class vending_machine {
         }
     }
 
-    admin_page_3() {
+    admin_add_drink() {
         console.log("음료를 선택 해주세요!");
 
         let select_arr = this.output_for_data(this.select);
@@ -158,7 +160,7 @@ class vending_machine {
         console.log(name + ' : ' + money);
     }
 
-    admin_page_4() {
+    admin_remove_drink() {
         console.log("음료를 선택 해주세요!");
 
         let select_arr = this.output_for_data(this.select);
@@ -172,7 +174,7 @@ class vending_machine {
         console.log('[' + this.admin_page_3_select_2 + ']');
 
         let data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
-        
+
         console.log('[관리자 페이지 - 음료 삭제 완료]');
         console.log(this.admin_page_3_select_2 + ' : ' + data[0][this.admin_page_3_select][this.admin_page_3_select_2]);
 
@@ -180,7 +182,7 @@ class vending_machine {
         fs.writeFileSync('data.json', JSON.stringify(data));
     }
 
-    select_1() {
+    user_ice_or_hot() {
         console.log("음료를 선택 해주세요!");
 
         let select_arr = this.output_for_data(this.select);
@@ -189,22 +191,22 @@ class vending_machine {
         console.log('[' + this.select_1_data + ']');
         
         if(this.select_1_data === 'admin') {
-            this.admin_page_0();
+            this.admin_main();
         } else {
-            this.select_2();
+            this.user_select_drink();
         }
     }
 
-    select_2() {
+    user_select_drink() {
         let select_arr = this.output_for_data(this.select[this.select_1_data]);
 
         this.select_2_data = this.read_data(select_arr, this.select[this.select_1_data]);
         console.log('[' + this.select_2_data + ']');
 
-        this.select_3();
+        this.user_select_pay();
     }
 
-    select_3() {
+    user_select_pay() {
         console.log("[결제 방식 선택]");
 
         let select_arr = this.output_for_data(this.how, 1);
@@ -213,13 +215,13 @@ class vending_machine {
         console.log("[" + this.select_3_data + "]");
 
         if(this.how[this.select_3_data][0] === 1) {
-            this.select_5();
+            this.user_end();
         } else {
-            this.select_4();
+            this.user_calc_cash();
         }
     }
 
-    select_4() {
+    user_calc_cash() {
         let select_arr = this.output_for_data(this.count, 2);
 
         let money_count = 0;
@@ -269,7 +271,7 @@ class vending_machine {
             }
         }
 
-        this.select_5(1);
+        this.user_end(1);
 
         console.log("[잔돈]");
         for(let for_a = 0; for_a < Object.keys(end).length; for_a++) {
@@ -277,7 +279,7 @@ class vending_machine {
         }
     }
 
-    select_5(do_type = 0) {
+    user_end(do_type = 0) {
         console.log("이용해주셔서 감사합니다.");
 
         console.log("[주문 음료]");
