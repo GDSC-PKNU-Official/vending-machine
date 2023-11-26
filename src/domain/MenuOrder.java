@@ -16,4 +16,10 @@ public class MenuOrder {
             throw new IllegalArgumentException("잘못된 주문입니다.\n");
         }
     }
+
+    private
+
+    public int getPrice() {
+        return menu.getPrice();
+    }
 }

@@ -19,12 +19,7 @@ public enum HotMenu implements Menu {
         this.price = price;
     }
 
-    public String getIntroductionMessage() {
-        return INTRODUCTION_MESSAGE;
-    }
-
-    @Override
-    public Menu getMenu(int number) {
+    public static Menu getMenu(int number) {
         return Arrays.stream(HotMenu.values())
                 .filter(hotMenu -> hotMenu.number == number)
                 .findFirst()

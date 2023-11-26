@@ -18,13 +18,7 @@ public enum IceMenu implements Menu {
         this.price = price;
     }
 
-    @Override
-    public String getIntroductionMessage() {
-        return INTRODUCTION_MESSAGE;
-    }
-
-    @Override
-    public Menu getMenu(int number) {
+    public static Menu getMenu(int number) {
         return Arrays.stream(IceMenu.values())
                 .filter(iceMenu -> iceMenu.number == number)
                 .findFirst()
