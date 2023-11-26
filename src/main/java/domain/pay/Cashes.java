@@ -1,9 +1,14 @@
 package domain.pay;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public record Cashes(List<Cash> value) {
+
+    public static Cashes empty() {
+        return new Cashes(new ArrayList<>());
+    }
 
     public boolean isGreaterOrEqualThan(final BigDecimal price) {
         final BigDecimal sum = sum();

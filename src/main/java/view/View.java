@@ -2,11 +2,14 @@ package view;
 
 import domain.beverage.BeverageTemperature;
 import domain.beverage.Drink;
+import domain.pay.Cash;
 import domain.pay.Cashes;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class View {
 
@@ -87,24 +90,60 @@ public class View {
         return PaymentOption.from(CONSOLE.nextLine());
     }
 
-    public static CashOption readCashOption(final Cashes cashes) {
-        System.out.println(String.format("""
+    public static CashOption readCashOption(final BigDecimal sumOfCurrentCashes) {
+        System.out.printf("""
                 ------------------------------
                 [현금 투입 : %d원]
-                """, cashes.sum().intValue()));
+                """, sumOfCurrentCashes.intValue());
 
         System.out.print("""
-                [1] 5만원권
-                [2] 1만원권
-                [3] 5천원권
-                [4] 1천원권
-                [5] 500원
-                [6] 100원
+                [1] 50만원권
+                [2] 10만원권
+                [3] 1만원권
+                [4] 500원
+                [5] 100원
                 [0] 반환
                                 
                 사용자 입력 >
                 """);
         final int selection = readAndParseToInt();
         return CashOption.from(selection);
+    }
+
+    public static void printCardPaymentResult(final Drink drink, final BigDecimal totalPrice) {
+        System.out.printf("""
+                -------------------------------
+                이용해주셔서 감사합니다.
+                                
+                [주문 음료]
+                %s
+                                
+                [결제 금액]
+                %d 원
+                """, drink.name(), totalPrice.intValue());
+    }
+
+    public static void printCashPaymentResult(final Drink drink,
+                                              final BigDecimal takenCashAmount,
+                                              final Cashes changes) {
+        System.out.printf(
+                """
+                        ------------------------------
+                        이용해주셔서 감사합니다.
+                                        
+                        [주문 음료]
+                        %s
+                                        
+                        [투입 금액]
+                        %d 원
+                                        
+                        [잔돈]
+                        """, drink.name(), takenCashAmount.intValue());
+        changes.value().stream()
+                .collect(Collectors.groupingBy(Cash::getPrice, Collectors.counting()))
+                .entrySet().stream()
+                .sorted((cash1, cash2) -> cash2.getKey().compareTo(cash1.getKey()))
+                .map(cash -> String.format("%d원 화폐 : %d개", cash.getKey().intValue(), cash.getValue()))
+                .forEach(System.out::println);
     }
 }

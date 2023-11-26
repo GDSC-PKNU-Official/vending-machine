@@ -6,25 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public record CashPayment(BigDecimal requestedPrice, Cashes cashes) implements Payable {
+public record CashPayment(BigDecimal requestedPrice, Cashes cashes) {
 
-    @Override
-    public boolean proceedPayment() {
-        return cashes.isGreaterOrEqualThan(requestedPrice);
+    public boolean isNotAvailableToPay() {
+        return !cashes.isGreaterOrEqualThan(requestedPrice);
     }
 
-    @Override
-    public BigDecimal getTotalPrice() {
-        return requestedPrice;
-    }
-
-    @Override
     public void addCash(final Cash cash) {
         cashes.addCash(cash);
     }
 
     public Cashes getChange() {
-        if (!proceedPayment()) {
+        if (isNotAvailableToPay()) {
             throw new IllegalStateException("현재의 금액 총합이 계산할 금액보다 적습니다.");
         }
 
@@ -59,4 +52,11 @@ public record CashPayment(BigDecimal requestedPrice, Cashes cashes) implements P
         return remains.subtract(cash.getPrice().multiply(quotient));
     }
 
+    public void clearTakenCashes() {
+        cashes.value().clear();
+    }
+
+    public BigDecimal getSum() {
+        return cashes.sum();
+    }
 }

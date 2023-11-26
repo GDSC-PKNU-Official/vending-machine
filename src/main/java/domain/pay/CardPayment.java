@@ -1,26 +1,16 @@
 package domain.pay;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-public record CardPayment(BigDecimal requestedPrice) implements Payable {
+public record CardPayment(BigDecimal requestedPrice) {
 
-    @Override
-    public boolean proceedPayment() {
-        return true;
-    }
-
-    @Override
     public BigDecimal getTotalPrice() {
         return getTaxedPrice();
     }
 
-    @Override
-    public void addCash(final Cash cash) {
-        throw new UnsupportedOperationException();
-    }
-
     private BigDecimal getTaxedPrice() {
-        final BigDecimal tax = requestedPrice.divide(BigDecimal.TEN);
+        final BigDecimal tax = requestedPrice.divide(BigDecimal.TEN, RoundingMode.FLOOR);
         return requestedPrice.add(tax);
     }
 }

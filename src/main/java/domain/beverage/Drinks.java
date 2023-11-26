@@ -13,4 +13,8 @@ public class Drinks {
     public Map<Integer, Drink> getValue() {
         return value;
     }
+
+    public Drink indexOf(final int index) {
+        return value.get(index);
+    }
 }
