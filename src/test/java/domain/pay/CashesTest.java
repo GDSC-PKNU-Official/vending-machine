@@ -28,7 +28,7 @@ class CashesTest {
     @DisplayName("주어진 금액보다 크면 true를 리턴한다")
     void isGreaterOrEqualThan_greater() {
         //given
-        final Cashes cashes = new Cashes(List.of(Cash.FIFTY_THOUSAND));
+        final Cashes cashes = new Cashes(List.of(Cash.FIVE_HUNDRED_THOUSAND));
 
         //when
         final boolean result = cashes.isGreaterOrEqualThan(BigDecimal.TEN);
@@ -41,7 +41,7 @@ class CashesTest {
     @DisplayName("주어진 금액과 같으면 true를 리턴한다")
     void isGreaterOrEqualThan_equal() {
         //given
-        final Cashes cashes = new Cashes(List.of(Cash.FIFTY_THOUSAND));
+        final Cashes cashes = new Cashes(List.of(Cash.FIVE_HUNDRED_THOUSAND));
 
         //when
         final boolean result = cashes.isGreaterOrEqualThan(BigDecimal.TEN);
@@ -54,7 +54,7 @@ class CashesTest {
     @DisplayName("현재 총액에서 주어진 금액을 뺀 값을 계산할 수 있다")
     void minus() {
         //given
-        final Cashes cashes = new Cashes(List.of(Cash.FIFTY_THOUSAND));
+        final Cashes cashes = new Cashes(List.of(Cash.FIVE_HUNDRED_THOUSAND));
 
         //when
         final BigDecimal result = cashes.minus(BigDecimal.valueOf(400_000L));

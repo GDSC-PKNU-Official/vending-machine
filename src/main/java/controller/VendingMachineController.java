@@ -2,19 +2,23 @@ package controller;
 
 import domain.beverage.Drinks;
 import domain.beverage.DrinksFactory;
-import view.InputView;
+import view.PaymentOption;
 import view.TemperatureOption;
+import view.View;
 
 import java.util.function.Supplier;
 
 public class VendingMachineController {
 
     public void run() {
-        InputView.printStartView();
-        final TemperatureOption temperatureOption = retryOnFailure(InputView::readBeverageTemperature);
+        View.printStartView();
+        final TemperatureOption temperatureOption = retryOnFailure(View::readBeverageTemperature);
 
         final Drinks drinks = createDrinks(temperatureOption);
-        final int beverageSeletion = InputView.readBeverage(drinks.getValue());
+        final int beverageSeletion = retryOnFailure(() -> View.readBeverage(drinks.getValue()));
+        final PaymentOption paymentOption = retryOnFailure(View::readPaymentOption);
+
+
     }
 
     private <T> T retryOnFailure(final Supplier<T> supplier) {

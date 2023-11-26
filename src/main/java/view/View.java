@@ -2,16 +2,17 @@ package view;
 
 import domain.beverage.BeverageTemperature;
 import domain.beverage.Drink;
+import domain.pay.Cashes;
 
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Scanner;
 
-public class InputView {
+public class View {
 
     private static final Scanner CONSOLE = new Scanner(System.in);
 
-    private InputView() {
+    private View() {
     }
 
     public static void printStartView() {
@@ -57,6 +58,10 @@ public class InputView {
         System.out.println();
 
         System.out.println("사용자 입력 > ");
+        return readAndParseToInt();
+    }
+
+    private static int readAndParseToInt() {
         try {
             return Integer.parseInt(CONSOLE.nextLine());
         } catch (NumberFormatException e) {
@@ -66,5 +71,40 @@ public class InputView {
 
     private static String makeDrinkView(final Drink drink) {
         return drink.name() + " : " + drink.price() + "원";
+    }
+
+    public static PaymentOption readPaymentOption() {
+        System.out.print("""
+                ------------------------------
+                [결제 방식 선택]
+                                
+                [1] 현금
+                [2] 카드 (부가세 10% 적용)
+                                
+                사용자 입력 >
+                """);
+
+        return PaymentOption.from(CONSOLE.nextLine());
+    }
+
+    public static CashOption readCashOption(final Cashes cashes) {
+        System.out.println(String.format("""
+                ------------------------------
+                [현금 투입 : %d원]
+                """, cashes.sum().intValue()));
+
+        System.out.print("""
+                [1] 5만원권
+                [2] 1만원권
+                [3] 5천원권
+                [4] 1천원권
+                [5] 500원
+                [6] 100원
+                [0] 반환
+                                
+                사용자 입력 >
+                """);
+        final int selection = readAndParseToInt();
+        return CashOption.from(selection);
     }
 }

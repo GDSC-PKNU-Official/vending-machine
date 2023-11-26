@@ -10,7 +10,7 @@ public record Cashes(List<Cash> value) {
         return sum.compareTo(price) >= 0;
     }
 
-    private BigDecimal sum() {
+    public BigDecimal sum() {
         return value.stream()
                 .map(Cash::getPrice)
                 .reduce(BigDecimal::add)
@@ -19,10 +19,5 @@ public record Cashes(List<Cash> value) {
 
     public BigDecimal minus(final BigDecimal price) {
         return sum().subtract(price);
-    }
-
-    @Override
-    public List<Cash> value() {
-        return value;
     }
 }

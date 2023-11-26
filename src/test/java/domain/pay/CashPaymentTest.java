@@ -15,7 +15,7 @@ class CashPaymentTest {
     @DisplayName("거스름돈을 계산할 수 있다")
     void getChange() {
         //given
-        final Cashes cashes = new Cashes(List.of(Cash.FIFTY_THOUSAND));
+        final Cashes cashes = new Cashes(List.of(Cash.FIVE_HUNDRED_THOUSAND));
         final CashPayment cashPayment = new CashPayment(BigDecimal.valueOf(100_000L), cashes);
 
         //when
@@ -23,17 +23,17 @@ class CashPaymentTest {
 
         //then
         assertThat(change.value()).containsExactlyInAnyOrder(
-                Cash.TEN_THOUSAND,
-                Cash.TEN_THOUSAND,
-                Cash.TEN_THOUSAND,
-                Cash.TEN_THOUSAND);
+                Cash.ONE_HUNDRED_THOUSAND,
+                Cash.ONE_HUNDRED_THOUSAND,
+                Cash.ONE_HUNDRED_THOUSAND,
+                Cash.ONE_HUNDRED_THOUSAND);
     }
 
     @Test
     @DisplayName("거스름돈이 없는 경우는 빈 결과를 반환한다")
     void getChange_empty() {
         //given
-        final Cashes cashes = new Cashes(List.of(Cash.FIFTY_THOUSAND));
+        final Cashes cashes = new Cashes(List.of(Cash.FIVE_HUNDRED_THOUSAND));
         final CashPayment cashPayment = new CashPayment(BigDecimal.valueOf(500_000L), cashes);
 
         //when
@@ -47,9 +47,9 @@ class CashPaymentTest {
     @DisplayName("현재 총액이 계산할 금액보다 적은 경우는 예외가 발생한다")
     void getChange_fail() {
         //given
-        final Cashes cashes = new Cashes(List.of(Cash.TEN_THOUSAND));
+        final Cashes cashes = new Cashes(List.of(Cash.ONE_HUNDRED_THOUSAND));
         final CashPayment cashPayment = new CashPayment(BigDecimal.valueOf(500_000L), cashes);
-        
+
         //when
         assertThatThrownBy(cashPayment::getChange)
                 .isInstanceOf(IllegalStateException.class);

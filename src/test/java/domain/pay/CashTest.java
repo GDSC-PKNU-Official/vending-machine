@@ -15,10 +15,10 @@ class CashTest {
     @DisplayName("현금끼리 더할 수 있다")
     void add() {
         //given
-        final Cash cash = Cash.FIFTY_THOUSAND;
+        final Cash cash = Cash.FIVE_HUNDRED_THOUSAND;
 
         //when
-        final BigDecimal added = cash.add(Cash.FIFTY_THOUSAND);
+        final BigDecimal added = cash.add(Cash.FIVE_HUNDRED_THOUSAND);
 
         //then
         assertThat(added).isEqualTo(BigDecimal.valueOf(1_000_000));

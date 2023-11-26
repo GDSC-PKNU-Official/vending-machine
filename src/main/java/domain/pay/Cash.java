@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Cash {
-    FIFTY_THOUSAND(BigDecimal.valueOf(500_000)),
-    TEN_THOUSAND(BigDecimal.valueOf(100_000)),
-    ONE_THOUSAND(BigDecimal.valueOf(10_000)),
+    FIVE_HUNDRED_THOUSAND(BigDecimal.valueOf(500_000)),
+    ONE_HUNDRED_THOUSAND(BigDecimal.valueOf(100_000)),
+    TEN_THOUSAND(BigDecimal.valueOf(10_000)),
     FIVE_HUNDRED(BigDecimal.valueOf(500)),
     ONE_HUNDRED(BigDecimal.valueOf(100)),
     ;
