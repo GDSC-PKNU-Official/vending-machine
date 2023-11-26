@@ -34,3 +34,7 @@ G.idea/sonarlint/issuestore/f/0/f07866736216be0ee2aba49e392191aeae700a35,b/f/bf
 Q.idea/sonarlint/securityhotspotstore/a/5/a5cc2925ca8258af241be7e5b0381edf30266302,3/0/30205a209c6ce77c4cfc19a09e6f57c588b7fb88
 ?
 settings.gradle,0/5/05efc8b1657769a27696d478ded1e95f38737233
+]
+-src/main/java/domain/BeverageTemperature.java,6/6/66545ba7ce721ee3925feb1c4954c60442b4e7f5
+O
+src/main/java/domain/Drink.java,7/c/7cacc6092ce288391c6f8ce71742413bf371ee1d
