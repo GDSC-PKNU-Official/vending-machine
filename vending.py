@@ -30,6 +30,15 @@ def hot(juice_list, price_list, cold_idx):
     print("\n------------------------------")
     return juice_list[juice + cold_idx - 1], price_list[juice + cold_idx - 1]
 
+def handle_juice(temperature, juice_list, cold_idx):
+    if (temperature == "1"):
+        juice, price = cold(juice_list, price_list, cold_idx)
+        return juice, price
+    elif (temperature == "2"):
+        juice, price = hot(juice_list, price_list, cold_idx)
+        return juice, price
+    error_handle()
+
 def select_pay():
     print("[결제 방식 선택]\n")
     print("[1] 현금")
@@ -51,7 +60,6 @@ def cash_input(sum):
     print("\n------------------------------")
     return num
 
-#ui와 분리..
 def cash_calculate(sum, price, cash_list):
     while (sum < price):
         num = cash_input(sum)
@@ -60,7 +68,7 @@ def cash_calculate(sum, price, cash_list):
             sum = 0
         elif (num >= 1 and num <= 6):
             sum += cash_list[num - 1]
-        else:
+        elif (num < 0 or num > 6):
             error_handle()
     return sum
 
@@ -81,7 +89,7 @@ def error_handle():
     print("잘못 입력하셨으므로 자판기가 종료됩니다.")
     exit
 
-def cash_output(juice, sum, cash_list, ret):
+def cashpay_output(juice, sum, cash_list, ret):
     print("\n------------------------------")
     print("이용해주셔서 감사합니다.\n")
     print(f"[주문 음료]\n{juice}\n")
@@ -91,7 +99,7 @@ def cash_output(juice, sum, cash_list, ret):
     print(f"[투입 금액]\n{pay}원\n")
     change_print(cash_list, ret)
 
-def card_output(juice, price):
+def cardpay_output(juice, price):
     print("\n------------------------------")
     print("이용해주셔서 감사합니다.\n")
     print(f"[주문 음료]\n{juice}\n")
@@ -100,6 +108,17 @@ def card_output(juice, price):
     pay =  pay[:-3] + "," + pay[-3:]
     print(f"[결제 금액]\n{pay}원")
 
+def handle_payment(payment, juice, price, sum, cash_list, ret):
+    if (payment == 1):
+        sum = cash_calculate(0, price, cash_list)
+        print(price)
+        ret = change_calculate(sum - price, cash_list)
+        cashpay_output(juice, sum, cash_list, ret)
+        return
+    elif (payment == 2):
+        cardpay_output(juice, price)
+        return
+    error_handle()
 
 def main():
     price_list = [1500, 1300, 1000, 1100, 1800, 1500, 1700, 2100]
@@ -109,23 +128,8 @@ def main():
     temperature = select_temperature()
     cold_idx = 4
 
-    if (temperature == "1"):
-        juice, price = cold(juice_list, price_list, cold_idx)
-    elif (temperature == "2"):
-        juice, price = hot(juice_list, price_list, cold_idx)
-    else:
-        error_handle()
-
+    juice, price = handle_juice(temperature, juice_list, cold_idx)
     payment = select_pay()
-
-    if (payment == 1):
-        sum = cash_calculate(0, price, cash_list)
-        print(price)
-        ret = change_calculate(sum - price, cash_list)
-        cash_output(juice, sum, cash_list, ret)
-    elif (payment == 2):
-        card_output(juice, price)
-    else:
-        error_handle()
+    handle_payment(payment, juice, price, sum, cash_list, ret)
 
 main()
