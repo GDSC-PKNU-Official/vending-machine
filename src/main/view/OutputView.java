@@ -1,6 +1,7 @@
 package main.view;
 
 import main.domain.Beverage;
+import main.domain.CashDenomination;
 import main.domain.Options;
 
 import java.util.List;
@@ -34,6 +35,13 @@ public class OutputView {
             Beverage beverage = beverages.get(i);
             System.out.printf("[%d] %s : %d원\n", i + 1, beverage.name(), beverage.price());
         }
+    }
+
+    public void printCashDenomination() {
+        for (CashDenomination denomination : CashDenomination.values()) {
+            System.out.println("[" + denomination.getOption() + "] " + denomination.getValue() + "원");
+        }
+        System.out.println("[0] 반환");
     }
 
     private Options getOptionByNumber(int optionNumber) {
