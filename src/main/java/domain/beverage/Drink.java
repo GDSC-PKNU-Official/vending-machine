@@ -1,4 +1,4 @@
-package domain;
+package domain.beverage;
 
 import java.math.BigDecimal;
 

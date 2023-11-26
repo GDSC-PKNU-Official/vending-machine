@@ -60,3 +60,7 @@ Y
 .src/main/java/domain/pay/ChangeCalculator.java,9/5/9509da9d0676dd305696077fbe38273f6b16b48c
 ]
 -src/test/java/domain/pay/CashPaymentTest.java,0/9/09a54d7d15bf123e5e31fa1583c58536e3306b48
+Y
+)src/main/java/domain/pay/CardPayment.java,8/2/82142d5215a9eb4fa3c9c3967834cd617d6e818b
+]
+-src/test/java/domain/pay/CardPaymentTest.java,3/0/30eb7d0057d7ff7c31ad5aabbe11860d7bf97aa3
