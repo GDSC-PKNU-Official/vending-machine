@@ -1,6 +1,9 @@
 package main.view;
 
+import main.domain.Beverage;
 import main.domain.Options;
+
+import java.util.List;
 
 public class OutputView {
 
@@ -20,5 +23,25 @@ public class OutputView {
         for (Options option : Options.values()) {
             System.out.println("[" + (option.ordinal() + 1) + "] " + option.getOptions());
         }
+    }
+
+    public void printBeverages(int optionNumber) {
+        Options selectedOption = getOptionByNumber(optionNumber);
+
+        List<Beverage> beverages = selectedOption.getBeverages();
+
+        for (int i = 0; i < beverages.size(); i++) {
+            Beverage beverage = beverages.get(i);
+            System.out.printf("[%d] %s : %d원\n", i + 1, beverage.name(), beverage.price());
+        }
+    }
+
+    private Options getOptionByNumber(int optionNumber) {
+        return Options.values()[optionNumber - 1];
+    }
+
+
+    public void lineClassification() {
+        System.out.println("------------------------------");
     }
 }
