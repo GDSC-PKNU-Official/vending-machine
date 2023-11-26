@@ -21,9 +21,14 @@ public class OutputView {
     }
 
     public static void printOptions() {
+        System.out.println("음료를 선택 해주세요!");
+        System.out.println();
+
         for (Options option : Options.values()) {
             System.out.println("[" + (option.ordinal() + 1) + "] " + option.getOptions());
         }
+
+        System.out.println();
     }
 
     public void printBeverages(int optionNumber) {
@@ -38,6 +43,7 @@ public class OutputView {
     }
 
     public void printCashDenomination() {
+
         for (CashDenomination denomination : CashDenomination.values()) {
             System.out.println("[" + denomination.getOption() + "] " + denomination.getValue() + "원");
         }
@@ -48,8 +54,14 @@ public class OutputView {
         return Options.values()[optionNumber - 1];
     }
 
+    public static void printPaymentOptions() {
+        lineClassification();
+        System.out.println("[결제 방식 선택]\n");
+        System.out.println("[1] 현금");
+        System.out.println("[2] 카드 (부가세 10% 적용)");
+    }
 
-    public void lineClassification() {
+    public static void lineClassification() {
         System.out.println("------------------------------");
     }
 }
