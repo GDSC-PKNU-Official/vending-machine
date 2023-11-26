@@ -23,13 +23,9 @@ public class VendingMachineController {
         final TemperatureOption temperatureOption = retryOnFailure(View::readBeverageTemperature);
 
         final Drinks drinks = createDrinks(temperatureOption);
-        final int beverageSeletion = retryOnFailure(() -> View.readBeverage(drinks.getValue()));
         final PaymentOption paymentOption = retryOnFailure(View::readPaymentOption);
 
-        final Drink drink = drinks.indexOf(beverageSeletion);
-        if (isNull(drink)) {
-            throw new IllegalArgumentException("존재하지 않는 상품입니다.");
-        }
+        final Drink drink = selectDrink(drinks);
 
         if (paymentOption.equals(PaymentOption.CARD)) {
             payWithCard(drink);
@@ -37,6 +33,18 @@ public class VendingMachineController {
         if (paymentOption.equals(PaymentOption.CASH)) {
             payWithCash(drink);
         }
+    }
+
+    private Drink selectDrink(final Drinks drinks) {
+        return retryOnFailure(() -> {
+            final int beverageSelection = retryOnFailure(() -> View.readBeverage(drinks.getValue()));
+            final Drink drink = drinks.indexOf(beverageSelection);
+            if (isNull(drink)) {
+                throw new IllegalArgumentException("존재하지 않는 상품입니다.");
+            }
+
+            return drink;
+        });
     }
 
     private <T> T retryOnFailure(final Supplier<T> supplier) {
