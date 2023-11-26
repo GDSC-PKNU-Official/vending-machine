@@ -170,6 +170,14 @@ class vending_machine {
 
         this.admin_page_3_select_2 = this.read_data(select_arr_2, this.select[this.admin_page_3_select]);
         console.log('[' + this.admin_page_3_select_2 + ']');
+
+        let data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
+        
+        console.log('[관리자 페이지 - 음료 삭제 완료]');
+        console.log(this.admin_page_3_select_2 + ' : ' + data[0][this.admin_page_3_select][this.admin_page_3_select_2]);
+
+        delete data[0][this.admin_page_3_select][this.admin_page_3_select_2];
+        fs.writeFileSync('data.json', JSON.stringify(data));
     }
 
     select_1() {
