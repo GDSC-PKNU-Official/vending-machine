@@ -16,4 +16,13 @@ public record Cashes(List<Cash> value) {
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
     }
+
+    public BigDecimal minus(final BigDecimal price) {
+        return sum().subtract(price);
+    }
+
+    @Override
+    public List<Cash> value() {
+        return value;
+    }
 }
