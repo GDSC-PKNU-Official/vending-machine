@@ -2,17 +2,6 @@ const reader = require('readline-sync');
 const fs = require('fs');
 
 class vending_machine {
-    constructor() {
-        const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
-        
-        this.select = data[0];
-        this.how = data[1];
-        this.count = data[2];
-        this.all = data[3];
-
-        this.auth = '사용자';
-    }
-
     refresh() {
         const data = JSON.parse(fs.readFileSync('./data.json', 'utf8'));
         
@@ -66,6 +55,7 @@ class vending_machine {
     }
 
     start() {
+        this.refresh();
         console.log("[어서와요! GDSC 음료 자판기]");
 
         this.user_ice_or_hot();
@@ -302,4 +292,6 @@ class vending_machine {
 }
 
 const new_vending_machine = new vending_machine();
-new_vending_machine.start();
+while(1) {
+    new_vending_machine.start();
+}
