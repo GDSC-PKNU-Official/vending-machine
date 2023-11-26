@@ -38,3 +38,17 @@ Q.idea/sonarlint/securityhotspotstore/a/5/a5cc2925ca8258af241be7e5b0381edf302663
 -src/main/java/domain/BeverageTemperature.java,6/6/66545ba7ce721ee3925feb1c4954c60442b4e7f5
 O
 src/main/java/domain/Drink.java,7/c/7cacc6092ce288391c6f8ce71742413bf371ee1d
+X
+(src/main/java/domain/beverage/Drink.java,5/4/540ba24b48e9992aa125ef4a26664fb1f4106b9f
+f
+6src/main/java/domain/beverage/BeverageTemperature.java,8/8/88c8b70881c4ba6c86194bd9196692ac190e7e7f
+U
+%src/main/java/domain/pay/Payable.java,4/b/4b80de795b81bbf2db4ed264a16e939a2b07c699
+R
+"src/main/java/domain/pay/Cash.java,f/5/f597a4d9ec924ba5f3fdc833a6cc049ca7e1cfdf
+T
+$src/main/java/domain/pay/Cashes.java,8/f/8fa0057d4c345b1d8f98206a3bd8e38475c5607d
+T
+$src/main/java/domain/pay/Caches.java,5/8/587f9f05c56d2daff5538a4612163c6e86d6cfd9
+V
+&src/test/java/domain/pay/CashTest.java,3/4/34706ea3e017f67716766a1c1cbb216ee9f8b622
