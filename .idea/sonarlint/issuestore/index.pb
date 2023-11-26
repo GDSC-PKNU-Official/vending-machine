@@ -52,3 +52,5 @@ T
 $src/main/java/domain/pay/Caches.java,5/8/587f9f05c56d2daff5538a4612163c6e86d6cfd9
 V
 &src/test/java/domain/pay/CashTest.java,3/4/34706ea3e017f67716766a1c1cbb216ee9f8b622
+X
+(src/test/java/domain/pay/CashesTest.java,8/c/8c708fb2d62f77cfcc67b82164801690530315db
