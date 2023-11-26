@@ -1,6 +1,6 @@
-package controller;
+package main.controller;
 
-import view.OutputView;
+import main.view.OutputView;
 
 public class VendingMachineController {
     public void start() {
