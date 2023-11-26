@@ -8,31 +8,27 @@ def select_temperature():
     print("\n------------------------------")
     return temperature
 
-def cold(juice_list, price_list):
+def cold(juice_list, price_list, cold_idx):
     print("[차가운 음료]\n")
-    print("[1] 스프라이트 : 1,500원")
-    print("[2] 코카콜라 : 1,300원")
-    print("[3] 솔의눈 : 1,000원")
-    print("[4] 펩시 콜라 : 1,100원\n")
+    for i in range(cold_idx):
+        price = str(price_list[i])
+        price =  price[:-3] + "," + price[i][-3:]
+        print(f"[{i + 1}] {juice_list[i]} : {price}원")
     juice = int(input("사용자 입력 > "))
-    if (juice < 1 or juice > 4):
-        print("잘못 입력하셨으므로 자판기가 종료됩니다.")
-        exit
+    if (juice < 1 or juice > cold_idx):
+        error_handle()
     print("\n------------------------------")
     return juice_list[juice - 1], price_list[juice - 1]
 
-def hot(juice_list, price_list):
+def hot(juice_list, price_list, cold_idx):
     print("[차가운 음료]\n")
-    print("[1] TOP커피 : 1,800원")
-    print("[2] 꿀물 : 1,500원")
-    print("[3] 홍삼차 : 1,700원")
-    print("[4] 단팥죽 :2,100원\n")
-    juice = int(input("사용자 입력 > "))
+    for i in range(len(juice_list) - cold_idx):
+        price = str(price_list[i + cold_idx])
+        price =  price[:-3] + "," + price[-3:]
+        print(f"[{i + 1}] {juice_list[i + cold_idx]} : {price}원")
+    juice = int(input("\n사용자 입력 > "))
     print("\n------------------------------")
-    return juice_list[juice + 3], price_list[juice + 3]
-
-def add_juice():
-    print("[관리자 페이지 - 음료 관리]\n")
+    return juice_list[juice + cold_idx - 1], price_list[juice + cold_idx - 1]
 
 def select_pay():
     print("[결제 방식 선택]\n")
@@ -42,34 +38,68 @@ def select_pay():
     print("\n------------------------------")
     return payment
 
-def cash(sum, price, cash_list):
-    while(sum < price):
-        print("[현금 투입 : {}원]\n".format(sum))
-        print("[1] 5만원권")
-        print("[2] 1만원권")
-        print("[3] 5천원권")
-        print("[4] 1천원권")
-        print("[5] 500원")
-        print("[6] 100원")
-        print("[0] 반환\n")
-        num = int(input("사용자 입력 > "))
-        print("\n------------------------------")
+def cash_input(sum):
+    print(f"[현금 투입 : {sum}원]\n")
+    print("[1] 5만원권")
+    print("[2] 1만원권")
+    print("[3] 5천원권")
+    print("[4] 1천원권")
+    print("[5] 500원")
+    print("[6] 100원")
+    print("[0] 반환\n")
+    num = int(input("사용자 입력 > "))
+    print("\n------------------------------")
+    return num
+
+#ui와 분리..
+def cash_calculate(sum, price, cash_list):
+    while (sum < price):
+        num = cash_input(sum)
         
         if (num == 0):
             sum = 0
         elif (num >= 1 and num <= 6):
             sum += cash_list[num - 1]
         else:
-            print("잘못 입력하셨으므로 자판기가 종료됩니다.")
-            exit
+            error_handle()
     return sum
 
-def cal(change, cash_list):
+def change_calculate(change, cash_list):
     ret = []
     for cash in cash_list:
         ret.append(change // cash)
         change %= cash
     return ret
+
+def change_print(cash_list, ret):
+    print("[잔돈]\n")
+    for i in range(len(cash_list)):
+        if (ret[i] != 0):
+            print(f"{cash_list[i]}원 동전 : {ret[i]}개\n")
+
+def error_handle():
+    print("잘못 입력하셨으므로 자판기가 종료됩니다.")
+    exit
+
+def cash_output(juice, sum, cash_list, ret):
+    print("\n------------------------------")
+    print("이용해주셔서 감사합니다.\n")
+    print(f"[주문 음료]\n{juice}\n")
+
+    pay = str(sum)
+    pay =  pay[:-3] + "," + pay[-3:]
+    print(f"[투입 금액]\n{pay}원\n")
+    change_print(cash_list, ret)
+
+def card_output(juice, price):
+    print("\n------------------------------")
+    print("이용해주셔서 감사합니다.\n")
+    print(f"[주문 음료]\n{juice}\n")
+    
+    pay = str(int(price * 1.1))
+    pay =  pay[:-3] + "," + pay[-3:]
+    print(f"[결제 금액]\n{pay}원")
+
 
 def main():
     price_list = [1500, 1300, 1000, 1100, 1800, 1500, 1700, 2100]
@@ -77,41 +107,25 @@ def main():
     cash_list = [50000, 10000, 5000, 1000, 500, 100]
 
     temperature = select_temperature()
+    cold_idx = 4
 
     if (temperature == "1"):
-        juice, price = cold(juice_list, price_list)
-        print(juice)
+        juice, price = cold(juice_list, price_list, cold_idx)
     elif (temperature == "2"):
-        juice, price = hot(juice_list, price_list)
-        print(juice)
+        juice, price = hot(juice_list, price_list, cold_idx)
     else:
-        print("잘못 입력하셨으므로 자판기가 종료됩니다.")
-        exit
+        error_handle()
 
     payment = select_pay()
 
     if (payment == 1):
-        sum = cash(0, price, cash_list)
-        ret = cal(sum - price, cash_list)
-
-    print("\n------------------------------")
-    print("이용해주셔서 감사합니다.\n")
-    print("[주문 음료]\n{}\n".format(juice))
-
-    if (payment == 1):
-        pay = str(sum)
-        pay =  pay[:-3] + "," + pay[-3:]
-        print("[투입 금액]\n{}원\n".format(pay))
-        print("[잔돈]\n")
-        for i in range(len(cash_list)):
-            if (ret[i] != 0):
-                print("{}원 동전 : {}개\n".format(cash_list[i], ret[i]))
+        sum = cash_calculate(0, price, cash_list)
+        print(price)
+        ret = change_calculate(sum - price, cash_list)
+        cash_output(juice, sum, cash_list, ret)
     elif (payment == 2):
-        pay = str(int(price * 1.1))
-        pay =  pay[:-3] + "," + pay[-3:]
-        print("[결제 금액]\n{}원".format(pay))
+        card_output(juice, price)
     else:
-        print("잘못 입력하셨으므로 자판기가 종료됩니다.")
-        exit
+        error_handle()
 
 main()
