@@ -33,7 +33,7 @@ class vending_machine {
     }
 
     output_for_data(select, data_type = 0) {
-        let select_length = Object.keys(select).length;
+        const select_length = Object.keys(select).length;
         let select_arr = {};
         for(let for_a = 0; for_a < select_length; for_a++) {
             if(data_type === 2 && select[Object.keys(select)[for_a]] === '') {
@@ -65,11 +65,11 @@ class vending_machine {
         console.log('[관리자 페이지]');
         this.auth = "admin";
 
-        let select = {
+        const select = {
             "총 수익 확인" : "",
             "음료 관리" : ""
         }
-        let select_arr = this.output_for_data(select);
+        const select_arr = this.output_for_data(select);
 
         this.admin_select_0 = this.read_data(select_arr, select);
         console.log('[' + this.admin_select_0 + ']');
@@ -94,7 +94,7 @@ class vending_machine {
             "음료 추가" : "",
             "음료 삭제" : ""
         }
-        let select_arr = this.output_for_data(select);
+        const select_arr = this.output_for_data(select);
 
         this.admin_select_1 = this.read_data(select_arr, select);
         console.log('[' + this.admin_select_1 + ']');
@@ -109,7 +109,7 @@ class vending_machine {
     }
 
     admin_drink_list() {
-        let select_length = Object.keys(this.select).length;
+        const select_length = Object.keys(this.select).length;
         for(let for_a = 0; for_a < select_length; for_a++) {
             console.log('[' + Object.keys(this.select)[for_a] + ']');
             this.output_for_data(this.select[Object.keys(this.select)[for_a]]);
@@ -119,7 +119,7 @@ class vending_machine {
     admin_add_drink() {
         console.log("음료를 선택 해주세요!");
 
-        let select_arr = this.output_for_data(this.select);
+        const select_arr = this.output_for_data(this.select);
     
         this.admin_page_3_select = this.read_data(select_arr, this.select);
         console.log('[' + this.admin_page_3_select + ']');
@@ -128,7 +128,7 @@ class vending_machine {
         
         process.stdout.write("admin 입력 > ");
         let input = reader.question();
-        let name = input;
+        const name = input;
 
         console.log('음료 가격을 설정하세요');
         let money = 0;
@@ -153,12 +153,12 @@ class vending_machine {
     admin_remove_drink() {
         console.log("음료를 선택 해주세요!");
 
-        let select_arr = this.output_for_data(this.select);
+        const select_arr = this.output_for_data(this.select);
     
         this.admin_page_3_select = this.read_data(select_arr, this.select);
         console.log('[' + this.admin_page_3_select + ']');
 
-        let select_arr_2 = this.output_for_data(this.select[this.admin_page_3_select]);
+        const select_arr_2 = this.output_for_data(this.select[this.admin_page_3_select]);
 
         this.admin_page_3_select_2 = this.read_data(select_arr_2, this.select[this.admin_page_3_select]);
         console.log('[' + this.admin_page_3_select_2 + ']');
@@ -175,7 +175,7 @@ class vending_machine {
     user_ice_or_hot() {
         console.log("음료를 선택 해주세요!");
 
-        let select_arr = this.output_for_data(this.select);
+        const select_arr = this.output_for_data(this.select);
     
         this.select_1_data = this.read_data(select_arr, this.select, 1);
         console.log('[' + this.select_1_data + ']');
@@ -188,7 +188,7 @@ class vending_machine {
     }
 
     user_select_drink() {
-        let select_arr = this.output_for_data(this.select[this.select_1_data]);
+        const select_arr = this.output_for_data(this.select[this.select_1_data]);
 
         this.select_2_data = this.read_data(select_arr, this.select[this.select_1_data]);
         console.log('[' + this.select_2_data + ']');
@@ -199,7 +199,7 @@ class vending_machine {
     user_select_pay() {
         console.log("[결제 방식 선택]");
 
-        let select_arr = this.output_for_data(this.how, 1);
+        const select_arr = this.output_for_data(this.how, 1);
 
         this.select_3_data = this.read_data(select_arr, this.how);
         console.log("[" + this.select_3_data + "]");
@@ -212,7 +212,7 @@ class vending_machine {
     }
 
     user_calc_cash() {
-        let select_arr = this.output_for_data(this.count, 2);
+        const select_arr = this.output_for_data(this.count, 2);
 
         let money_count = 0;
         while(1) {
