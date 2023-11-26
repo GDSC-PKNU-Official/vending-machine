@@ -1,16 +1,16 @@
 package domain.beverage;
 
-import java.util.List;
+import java.util.Map;
 
 public class Drinks {
 
-    private final List<Drink> value;
+    private final Map<Integer, Drink> value;
 
-    public Drinks(final List<Drink> value) {
+    public Drinks(final Map<Integer, Drink> value) {
         this.value = value;
     }
 
-    public List<Drink> getValue() {
+    public Map<Integer, Drink> getValue() {
         return value;
     }
 }
