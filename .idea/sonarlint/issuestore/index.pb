@@ -54,3 +54,9 @@ V
 &src/test/java/domain/pay/CashTest.java,3/4/34706ea3e017f67716766a1c1cbb216ee9f8b622
 X
 (src/test/java/domain/pay/CashesTest.java,8/c/8c708fb2d62f77cfcc67b82164801690530315db
+Y
+)src/main/java/domain/pay/CashPayment.java,e/2/e215296ee8fac47930b4069df1029afd0a2aa3b4
+^
+.src/main/java/domain/pay/ChangeCalculator.java,9/5/9509da9d0676dd305696077fbe38273f6b16b48c
+]
+-src/test/java/domain/pay/CashPaymentTest.java,0/9/09a54d7d15bf123e5e31fa1583c58536e3306b48
